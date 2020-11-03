@@ -3,7 +3,7 @@ class Choice
 
     CHOICE_RANGE = (1..14).to_a
 
-    @@categories = ["Corporate","Creative","Blog Magazine","E-commerce","Retail","Entertainment","Technology","Nonprofit","Education","Real Estate","Miscellaneous","Wedding","BuddyPress","Mobile"]
+    @@categories = ["Corporate","Creative","E-commerce","Entertainment","Technology","Nonprofit","Education","Real Estate","Miscellaneous","Wedding","BuddyPress","Mobile"]
 
     
     def initialize(choice)
