@@ -1,3 +1,43 @@
 #!/usr/bin/env ruby
+require_relative '../lib/choice'
 
-puts " Hello From Scrape"
+puts "Welcome to the Theme Forest Scraper!"
+sleep(1)
+puts "Find the link of your favorite WordPress Theme, accoding to your Budget!"
+sleep(2)
+puts "Please choose your category from the list below:"
+sleep(1)
+
+puts "Tape 1  for Corporate"
+puts "Tape 2  for Creative"
+puts "Tape 3  for Blog Magazine"
+puts "Tape 4  for E-commerce"
+puts "Tape 5  for Retail"
+puts "Tape 6  for Entertainment"
+puts "Tape 7  for Technology"
+puts "Tape 8  for Nonprofit"
+puts "Tape 9  for Education"
+puts "Tape 10 for Real Estate"
+puts "Tape 11 for Miscellaneous"
+puts "Tape 12 for Wedding"
+puts "Tape 13 for BuddyPress"
+puts "Tape 14 for Mobile"
+sleep(1)
+puts
+puts "Please Enter your choice now"
+
+ask_for_choice = true
+
+while ask_for_choice do
+
+    choice = gets.chomp.to_i
+
+    category = Choice.new(choice)
+
+    if category.isValid?
+        puts "You have chosen the category #{category.showCategories}"
+        ask_for_choice = false
+    else
+        puts "Please enter a valid choice"
+    end
+end
