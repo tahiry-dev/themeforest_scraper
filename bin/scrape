@@ -1,37 +1,53 @@
 #!/usr/bin/env ruby
 require_relative '../lib/choice'
+require_relative '../lib/budget'
+require_relative '../lib/fetching'
 
 puts "Welcome to the Theme Forest Scraper!"
 sleep(1)
-puts "Find the link of your favorite WordPress Theme, accoding to your Budget!"
+puts
+puts "Find the link of your favorite WordPress Theme, according to your Budget!"
 sleep(2)
+puts
 puts "Please choose your category from the list below:"
 sleep(1)
 
 puts "Tape 1  for Corporate"
+sleep(0.5)
 puts "Tape 2  for Creative"
+sleep(0.5)
 puts "Tape 3  for Blog Magazine"
+sleep(0.5)
 puts "Tape 4  for E-commerce"
+sleep(0.5)
 puts "Tape 5  for Retail"
+sleep(0.5)
 puts "Tape 6  for Entertainment"
+sleep(0.5)
 puts "Tape 7  for Technology"
+sleep(0.5)
 puts "Tape 8  for Nonprofit"
+sleep(0.5)
 puts "Tape 9  for Education"
+sleep(0.5)
 puts "Tape 10 for Real Estate"
+sleep(0.5)
 puts "Tape 11 for Miscellaneous"
+sleep(0.5)
 puts "Tape 12 for Wedding"
+sleep(0.5)
 puts "Tape 13 for BuddyPress"
+sleep(0.5)
 puts "Tape 14 for Mobile"
-sleep(1)
+sleep(0.5)
 puts
-puts "Please Enter your choice now"
+puts "Please Choose your category now"
 
 ask_for_choice = true
 
 while ask_for_choice do
 
     choice = gets.chomp.to_i
-
     category = Choice.new(choice)
 
     if category.isValid?
@@ -41,3 +57,27 @@ while ask_for_choice do
         puts "Please enter a valid choice"
     end
 end
+
+sleep(1)
+puts
+puts "Now, please enter your maximum Budget"
+
+ask_for_budget = true
+
+while ask_for_budget do
+
+    budget = gets.chomp.strip.to_f
+    my_limit = Budget.new(budget)
+
+    if my_limit.validBudget?
+        puts "Your maximum budget is #{my_limit.amount}"
+        ask_for_budget = false
+    else
+        puts "Please enter a positive number"
+    end
+end
+
+
+
+
+
