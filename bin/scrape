@@ -5,118 +5,98 @@ require_relative '../lib/choice'
 require_relative '../lib/budget'
 require_relative '../lib/fetching'
 
-puts "Welcome to the Theme Forest Scraper!"
+puts 'Welcome to the Theme Forest Scraper!'
 sleep(1)
 puts
-puts "Find the link of your favorite WordPress Theme, according to your Budget!"
+puts 'Find the link of your favorite WordPress Theme, according to your Budget!'
 sleep(2)
 puts
-puts "Please choose your category from the list below:"
+puts 'Please choose your category from the list below:'
 sleep(1)
 
-puts "Tape 1  for Corporate"
+puts 'Tape 1  for Corporate'
 sleep(0.5)
-puts "Tape 2  for Creative"
+puts 'Tape 2  for Creative'
 sleep(0.5)
-puts "Tape 3  for E-commerce"
+puts 'Tape 3  for E-commerce'
 sleep(0.5)
-puts "Tape 4  for Entertainment"
+puts 'Tape 4  for Entertainment'
 sleep(0.5)
-puts "Tape 5  for Technology"
+puts 'Tape 5  for Technology'
 sleep(0.5)
-puts "Tape 6  for Nonprofit"
+puts 'Tape 6  for Nonprofit'
 sleep(0.5)
-puts "Tape 7  for Education"
+puts 'Tape 7  for Education'
 sleep(0.5)
-puts "Tape 8  for Real Estate"
+puts 'Tape 8  for Real Estate'
 sleep(0.5)
-puts "Tape 9  for Miscellaneous"
+puts 'Tape 9  for Miscellaneous'
 sleep(0.5)
-puts "Tape 10 for Wedding"
+puts 'Tape 10 for Wedding'
 sleep(0.5)
-puts "Tape 11 for BuddyPress"
+puts 'Tape 11 for BuddyPress'
 sleep(0.5)
-puts "Tape 12 for Mobile"
+puts 'Tape 12 for Mobile'
 sleep(0.5)
 puts
-puts "Please Choose your category now"
+puts 'Please Choose your category now'
 
 ask_for_choice = true
 
-while ask_for_choice do
-    choice = gets.chomp.to_i
-    category = Choice.new(choice)
-    if category.isValid?
-        puts "You have chosen the category #{category.showCategories}"
-        ask_for_choice = false
-    else
-        puts "Please enter a valid choice"
-    end
+while ask_for_choice
+  choice = gets.chomp.to_i
+  category = Choice.new(choice)
+  if category.valid?
+    puts "You have chosen the category #{category.show_categories}"
+    ask_for_choice = false
+  else
+    puts 'Please enter a valid choice'
+  end
 end
 
 sleep(1)
 puts
-puts "Now, please enter your maximum Budget"
+puts 'Now, please enter your maximum Budget'
 
 loop do
-    ask_for_budget = true
-    while ask_for_budget do
-        budget = gets.chomp.strip.to_f
-        my_limit = Budget.new(budget)
-
-        if my_limit.validBudget?
-            puts "Your maximum budget is $#{my_limit.amount}"
-            ask_for_budget = false
-        else
-            puts "Please enter a positive number"
-        end
+  ask_for_budget = true
+  while ask_for_budget
+    budget = gets.chomp.strip.to_f
+    my_limit = Budget.new(budget)
+    if my_limit.valid_budget?
+      puts "Your maximum budget is $#{my_limit.amount}"
+      ask_for_budget = false
+    else
+      puts 'Please enter a positive number'
     end
-    
-    action = Fetching.new(category.showCategories, my_limit.amount)
+  end
 
-    data = action.assignUrl
-
-    url = data[0]
-
-    page_number = data[1]
-
-    puts
-
-    puts "Parsing now..."
-    puts
-
-    result = []
-
-    1.upto(page_number) do |pagenum|
-        my_url = URI.open(url)
-
-        doc = Nokogiri::HTML(my_url)
-
-        price_arr = doc.css('.-DeRq').text.strip.split("$")
-
-        product_price = price_arr.select {|price| price.length > 0}
-
-        product_links = doc.css('._2Pk9X').collect {|title|  title.attribute('href').value}
-
-        products_hash = Hash[product_links.zip product_price]
-
-        products_hash.select {|key, value| result << key if value.to_i <= action.budget}
-
-        if result.empty?
-            puts "Sorry, currently we don't have such offer, \nplease update your budget"
-            break
-        else
-            puts "here are the result:"
-            puts
-            result.each {|el| puts el}
-            break
-        end
+  action = Fetching.new(category.showCategories, my_limit.amount)
+  data = action.assign_url
+  url = data
+  puts
+  puts 'Parsing now...'
+  puts
+  result = []
+  # rubocop:disable Style/IdenticalConditionalBranches
+  loop do
+    my_url = URI.open(url)
+    doc = Nokogiri::HTML(my_url)
+    price_arr = doc.css('.-DeRq').text.strip.split('$')
+    product_price = price_arr.select { |price| price.length.positive? }
+    product_links = doc.css('._2Pk9X').collect { |title| title.attribute('href').value }
+    products_hash = Hash[product_links.zip product_price]
+    products_hash.select { |key, value| result << key if value.to_i <= action.budget }
+    if result.empty?
+      puts "Sorry, currently we don't have such offer, \nplease update your budget"
+      break
+    else
+      puts 'here are the result:'
+      puts
+      result.each { |el| puts el }
+      break
     end
-    break if !result.empty?
+  end
+  # rubocop:enable Style/IdenticalConditionalBranches
+  break unless result.empty?
 end
-
-
-
-
-
-

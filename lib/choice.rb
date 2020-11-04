@@ -1,20 +1,21 @@
 class Choice
-    attr_reader :choice
+  attr_reader :choice
 
-    CHOICE_RANGE = (1..14).to_a
+  CHOICE_RANGE = (1..12).to_a
 
-    @@categories = ["Corporate","Creative","E-commerce","Entertainment","Technology","Nonprofit","Education","Real Estate","Miscellaneous","Wedding","BuddyPress","Mobile"]
+  CATEGORIES = ['Corporate', 'Creative', 'E-commerce', 'Entertainment',
+                'Technology', 'Nonprofit', 'Education', 'Real Estate',
+                'Miscellaneous', 'Wedding', 'BuddyPress', 'Mobile'].freeze
 
-    
-    def initialize(choice)
-        @choice = choice 
-    end
+  def initialize(choice)
+    @choice = choice
+  end
 
-    def isValid?
-        CHOICE_RANGE.include?(@choice) ? true : false
-    end
+  def valid?
+    CHOICE_RANGE.include?(@choice) ? true : false
+  end
 
-    def showCategories
-        @@categories[(@choice)-1]
-    end
+  def show_categories
+    CATEGORIES[@choice - 1]
+  end
 end

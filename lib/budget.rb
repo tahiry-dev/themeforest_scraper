@@ -4,7 +4,7 @@ class Budget
     @amount = amount
   end
 
-  def validBudget?
-     @amount <= 0 ? false : true
+  def valid_budget?
+    @amount.positive?
   end
 end
