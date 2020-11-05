@@ -43,7 +43,10 @@ bundle install
 ```
 
 ### Run the Program
-To run the program, you just need to type *bin/scrape*
+To run the program, you just need to type:
+```
+bin/scrape
+```
 
 ### Usage
 The program is based on the category and budget you own so please inform the program about it
