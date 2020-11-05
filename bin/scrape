@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-require 'open-uri'
-require 'nokogiri'
 require_relative '../lib/choice'
 require_relative '../lib/budget'
 require_relative '../lib/fetching'
@@ -59,30 +57,23 @@ loop do
   end
 
   action = Fetching.new(category.show_categories, my_limit.amount)
-  data = action.assign_url
-  url = data
+  url = action.assign_url
+ 
   puts
   puts 'Parsing now...'
   puts
-  result = []
   
-  loop do
-    my_url = URI.open(url)
-    doc = Nokogiri::HTML(my_url)
-    price_arr = doc.css('.-DeRq').text.strip.split('$')
-    product_price = price_arr.select { |price| price.length.positive? }
-    product_links = doc.css('._2Pk9X').collect { |title| title.attribute('href').value }
-    products_hash = Hash[product_links.zip product_price]
-    products_hash.select { |key, value| result << key if value.to_i <= action.budget }
-    if result.empty?
+  loop do  
+    action.parse_data(url)
+    if action.result.empty?
       puts "Sorry, currently we don't have such offer, \nplease update your budget"
       break
     else
       puts 'here are the result:'
       puts
-      result.each { |el| puts el }
+      action.result.each { |el| puts el }
       break
     end
   end
-  break unless result.empty?
+  break unless action.result.empty?
 end
