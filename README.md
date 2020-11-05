@@ -9,7 +9,7 @@ The research is based on your budget, so it will return only the link of a produ
 ## Built With
 
 - Ruby
-- Nokogiri gem
+- Nokogiri Gem
 - VsCode
 
 ## Getting Started
@@ -31,7 +31,8 @@ Here are the link to guide you to install Ruby on your machine:
 - Create a new folder on your machine
 - Move inside that new folder
 - Open your Terminal or Powershell on Windows 10
-- And type the following code: git clone git@github.com:tahiry-dev/themeforest_scraper.git . 
+- And type the following code:   
+    git clone https://github.com/tahiry-dev/themeforest_scraper.git .
 
 ### Run the Program
 To run the program, you just need to type *bin/scrape*
