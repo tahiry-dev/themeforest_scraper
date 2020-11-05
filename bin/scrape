@@ -1,0 +1,80 @@
+#!/usr/bin/env ruby
+require_relative '../lib/choice'
+require_relative '../lib/budget'
+require_relative '../lib/fetching'
+
+presentation = {
+  1 => 'Corporate', 2 => 'Creative', 3 => 'E-commerce',
+  4 => 'Entertainment', 5 => 'Technology', 6 => 'Nonprofit', 7 => 'Education',
+  8 => 'Real Estate', 9 => 'Miscellaneous', 10 => 'Wedding', 11 => 'BuddyPress',
+  12 => 'Mobile'
+}
+
+puts 'Welcome to the Theme Forest Scraper!'
+sleep(1)
+puts
+puts 'Find the link of your favorite WordPress Theme, according to your Budget!'
+sleep(2)
+puts
+puts 'Please choose your category from the list below:'
+sleep(1)
+puts
+
+presentation.each { |index, category| puts "tape #{index} for #{category}" }
+
+puts
+puts 'Please Choose your category now'
+
+ask_for_choice = true
+
+while ask_for_choice
+  choice = gets.chomp.to_i
+  category = Choice.new(choice)
+  if category.valid?
+    puts "You have chosen the category #{category.show_categories}"
+    ask_for_choice = false
+  else
+    puts 'Please enter a valid choice'
+  end
+end
+
+sleep(1)
+puts
+puts 'Now, please enter your maximum Budget'
+
+loop do
+  ask_for_budget = true
+  while ask_for_budget
+    budget = gets.chomp.strip.to_f
+    my_limit = Budget.new(budget)
+    if my_limit.valid_budget?
+      puts "Your maximum budget is $#{my_limit.amount}"
+      ask_for_budget = false
+    else
+      puts 'Please enter a positive number'
+    end
+  end
+
+  action = Fetching.new(category.show_categories, my_limit.amount)
+  url = action.assign_url
+
+  puts
+  puts 'Parsing now...'
+  puts
+
+  # rubocop:disable Style/IdenticalConditionalBranches
+  loop do
+    action.parse_data(url)
+    if action.result.empty?
+      puts "Sorry, currently we don't have such offer, \nplease update your budget"
+      break
+    else
+      puts 'here are the result:'
+      puts
+      action.result.each { |el| puts el }
+      break
+    end
+  end
+  break unless action.result.empty?
+  # rubocop:enable Style/IdenticalConditionalBranches
+end
