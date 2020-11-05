@@ -33,14 +33,13 @@ Here are the link to guide you to install Ruby on your machine:
 - Open your Terminal or Powershell on Windows 10
 - And type the following code:   
 ```
-    git clone https://github.com/tahiry-dev/themeforest_scraper.git .
-    
+git clone https://github.com/tahiry-dev/themeforest_scraper.git . 
 ```
 
 ### Install dependencies
 Copy and past the following code into your terminal:
-```  
-'bundle install'
+```
+bundle install
 ```
 
 ### Run the Program
