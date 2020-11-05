@@ -32,7 +32,16 @@ Here are the link to guide you to install Ruby on your machine:
 - Move inside that new folder
 - Open your Terminal or Powershell on Windows 10
 - And type the following code:   
+```
     git clone https://github.com/tahiry-dev/themeforest_scraper.git .
+    
+```
+
+### Install dependencies
+Copy and past the following code into your terminal:
+```  
+'bundle install'
+```
 
 ### Run the Program
 To run the program, you just need to type *bin/scrape*
