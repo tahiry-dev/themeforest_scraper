@@ -12,7 +12,7 @@ class Fetching
   end
 
   def assign_url
-    @url = "https://themeforest.net/category/wordpress/#{@category}?&sort=sales" 
+    @url = "https://themeforest.net/category/wordpress/#{@category}?&sort=sales"
   end
 
   def parse_data(url_x)
@@ -23,7 +23,7 @@ class Fetching
     product_price = price_arr.select { |price| price.length.positive? }
     product_links = doc.css('._2Pk9X').collect { |title| title.attribute('href').value }
     products_hash = Hash[product_links.zip product_price]
-    products_hash.select {|key, value| result << key if value.to_i <= @budget}
+    products_hash.select { |key, value| result << key if value.to_i <= @budget }
     @result = result
   end
 end

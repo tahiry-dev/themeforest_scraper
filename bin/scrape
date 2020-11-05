@@ -3,12 +3,12 @@ require_relative '../lib/choice'
 require_relative '../lib/budget'
 require_relative '../lib/fetching'
 
-presentation = { 
+presentation = {
   1 => 'Corporate', 2 => 'Creative', 3 => 'E-commerce',
-  4 => 'Entertainment' , 5 => 'Technology', 6 => 'Nonprofit', 7 => 'Education',
-  8 => 'Real Estate', 9 => 'Miscellaneous', 10 => 'Wedding', 11 =>'BuddyPress',
-  12 =>'Mobile'
- } 
+  4 => 'Entertainment', 5 => 'Technology', 6 => 'Nonprofit', 7 => 'Education',
+  8 => 'Real Estate', 9 => 'Miscellaneous', 10 => 'Wedding', 11 => 'BuddyPress',
+  12 => 'Mobile'
+}
 
 puts 'Welcome to the Theme Forest Scraper!'
 sleep(1)
@@ -20,8 +20,7 @@ puts 'Please choose your category from the list below:'
 sleep(1)
 puts
 
-presentation.each {|index, category| puts "tape #{index} for #{category}"}
-
+presentation.each { |index, category| puts "tape #{index} for #{category}" }
 
 puts
 puts 'Please Choose your category now'
@@ -58,12 +57,13 @@ loop do
 
   action = Fetching.new(category.show_categories, my_limit.amount)
   url = action.assign_url
- 
+
   puts
   puts 'Parsing now...'
   puts
-  
-  loop do  
+
+  # rubocop:disable Style/IdenticalConditionalBranches
+  loop do
     action.parse_data(url)
     if action.result.empty?
       puts "Sorry, currently we don't have such offer, \nplease update your budget"
@@ -76,4 +76,5 @@ loop do
     end
   end
   break unless action.result.empty?
+  # rubocop:enable Style/IdenticalConditionalBranches
 end
