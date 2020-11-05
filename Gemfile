@@ -1,7 +1,3 @@
-# frozen_string_literal: true
-
-source "https://rubygems.org"
-
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
-
- gem 'nokogiri'
+source 'https://rubygems.org'
+gem 'nokogiri'
+gem 'rubocop', '~>0.81.0'
