@@ -4,7 +4,7 @@ class Choice
   CHOICE_RANGE = (1..12).to_a
 
   CATEGORIES = ['Corporate', 'Creative', 'E-commerce', 'Entertainment',
-                'Technology', 'Nonprofit', 'Education', 'Real Estate',
+                'Technology', 'Nonprofit', 'Education', 'Real-Estate',
                 'Miscellaneous', 'Wedding', 'BuddyPress', 'Mobile'].freeze
 
   def initialize(choice)
