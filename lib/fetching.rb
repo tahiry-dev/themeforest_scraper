@@ -6,8 +6,6 @@ class Fetching
     @budget = budget
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/PerceivedComplexity
   def assign_url
     if @category == 'Corporate'
       @url = 'https://themeforest.net/category/wordpress/corporate?&sort=sales'
@@ -36,6 +34,4 @@ class Fetching
     end
     @url
   end
-  # rubocop:enable Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/CyclomaticComplexity
 end

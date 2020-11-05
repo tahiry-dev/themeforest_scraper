@@ -12,7 +12,7 @@ RSpec.describe Fetching do
 
   describe '#assignUrl' do
     it "should return the link of 'Creative'" do
-      expect(my_choice.assignUrl).is_a?(String)
+      expect(my_choice.assign_url).is_a?(String)
     end
   end
 end

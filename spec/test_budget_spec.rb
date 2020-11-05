@@ -13,12 +13,12 @@ RSpec.describe Budget do
   describe '#validBudget?' do
     context 'the Budget is not valid' do
       it 'should return false' do
-        expect(my_budget.validBudget?).to eq(false)
+        expect(my_budget.valid_budget?).to eq(false)
       end
     end
     context 'the Budget is valid' do
       it 'should return true' do
-        expect(my_limit.validBudget?).to eq(true)
+        expect(my_limit.valid_budget?).to eq(true)
       end
     end
   end

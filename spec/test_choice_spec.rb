@@ -14,23 +14,23 @@ RSpec.describe Choice do
     end
   end
 
-  describe '#isValid?' do
+  describe '#valid?' do
     context 'The choce is valid' do
       it 'should return True' do
-        expect(second_choice.isValid?).to be(true)
+        expect(second_choice.valid?).to be(true)
       end
     end
 
     context 'The choice is not valid' do
       it 'should return False' do
-        expect(third_choice.isValid?).to be(false)
+        expect(third_choice.valid?).to be(false)
       end
     end
   end
 
-  describe 'showCategories' do
+  describe 'show_categories' do
     it 'should return the name of the category chosen' do
-      expect(check_categories.showCategories).to eq('Retail')
+      expect(check_categories.show_categories).to eq('Technology')
     end
   end
 end

@@ -5,6 +5,13 @@ require_relative '../lib/choice'
 require_relative '../lib/budget'
 require_relative '../lib/fetching'
 
+presentation = { 
+  1 => 'Corporate', 2 => 'Creative', 3 => 'E-commerce',
+  4 => 'Entertainment' , 5 => 'Technology', 6 => 'Nonprofit', 7 => 'Education',
+  8 => 'Real Estate', 9 => 'Miscellaneous', 10 => 'Wedding', 11 =>'BuddyPress',
+  12 =>'Mobile'
+ } 
+
 puts 'Welcome to the Theme Forest Scraper!'
 sleep(1)
 puts
@@ -13,31 +20,11 @@ sleep(2)
 puts
 puts 'Please choose your category from the list below:'
 sleep(1)
+puts
 
-puts 'Tape 1  for Corporate'
-sleep(0.5)
-puts 'Tape 2  for Creative'
-sleep(0.5)
-puts 'Tape 3  for E-commerce'
-sleep(0.5)
-puts 'Tape 4  for Entertainment'
-sleep(0.5)
-puts 'Tape 5  for Technology'
-sleep(0.5)
-puts 'Tape 6  for Nonprofit'
-sleep(0.5)
-puts 'Tape 7  for Education'
-sleep(0.5)
-puts 'Tape 8  for Real Estate'
-sleep(0.5)
-puts 'Tape 9  for Miscellaneous'
-sleep(0.5)
-puts 'Tape 10 for Wedding'
-sleep(0.5)
-puts 'Tape 11 for BuddyPress'
-sleep(0.5)
-puts 'Tape 12 for Mobile'
-sleep(0.5)
+presentation.each {|index, category| puts "tape #{index} for #{category}"}
+
+
 puts
 puts 'Please Choose your category now'
 
@@ -71,14 +58,14 @@ loop do
     end
   end
 
-  action = Fetching.new(category.showCategories, my_limit.amount)
+  action = Fetching.new(category.show_categories, my_limit.amount)
   data = action.assign_url
   url = data
   puts
   puts 'Parsing now...'
   puts
   result = []
-  # rubocop:disable Style/IdenticalConditionalBranches
+  
   loop do
     my_url = URI.open(url)
     doc = Nokogiri::HTML(my_url)
@@ -97,6 +84,5 @@ loop do
       break
     end
   end
-  # rubocop:enable Style/IdenticalConditionalBranches
   break unless result.empty?
 end
